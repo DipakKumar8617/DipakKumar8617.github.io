@@ -64,6 +64,7 @@
       flex-wrap: wrap;
       width: min(1140px, calc(100% - 32px));
       margin: 0 auto;
+      position: relative;
     }
 
     .brand-name {
@@ -105,6 +106,61 @@
       border-radius: 999px;
       background: rgba(52, 211, 153, 0.08);
       min-width: 180px;
+    }
+
+    /* Mobile menu button (three dots) */
+    .menu-button {
+      display: none;
+      background: transparent;
+      border: 0;
+      color: var(--muted);
+      font-size: 1.4rem;
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      right: 18px;
+      top: calc(100% + 10px);
+      background: var(--surface-strong);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      min-width: 180px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      z-index: 30;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 8px 6px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.96rem;
+    }
+
+    .mobile-menu a + a {
+      margin-top: 6px;
+    }
+
+    .mobile-menu.open {
+      display: block;
+    }
+
+    /* Compact header when scrolling on small screens */
+    .topbar.compact {
+      padding: 10px 18px;
+      transition: padding 0.22s ease;
+    }
+
+    @media (max-width: 680px) {
+      .menu-button { display: inline-flex; align-items: center; justify-content: center; }
+      .nav-links { display: none; }
+      .topbar.compact .nav-links { display: none; }
+      .topbar.compact .topbar-status { display: inline-flex; }
     }
 
     .hero {
@@ -455,6 +511,15 @@
           <a href="#contact">Contact</a>
         </nav>
         <div class="topbar-status">Open to freelance</div>
+        <button class="menu-button" id="menuButton" aria-haspopup="true" aria-expanded="false" aria-label="Open navigation">⋮</button>
+
+        <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
+          <a href="#summary">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Work</a>
+          <a href="#contact">Contact</a>
+        </div>
       </div>
     </header>
 
@@ -691,6 +756,58 @@
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
+    });
+
+    // Mobile menu toggle (3-dot button)
+    const menuButton = document.getElementById('menuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      menuButton.setAttribute('aria-expanded', 'false');
+    }
+
+    function openMobileMenu() {
+      mobileMenu.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      menuButton.setAttribute('aria-expanded', 'true');
+    }
+
+    menuButton.addEventListener('click', (e) => {
+      const isOpen = mobileMenu.classList.contains('open');
+      if (isOpen) closeMobileMenu(); else openMobileMenu();
+    });
+
+    // Close mobile menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        closeMobileMenu();
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    // Compact header on scroll for small screens: show only brand and status
+    const topbar = document.querySelector('.topbar');
+    let lastScroll = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const current = window.scrollY;
+      if (window.innerWidth <= 680) {
+        if (current > 80) {
+          topbar.classList.add('compact');
+        } else {
+          topbar.classList.remove('compact');
+        }
+      } else {
+        topbar.classList.remove('compact');
+      }
+      lastScroll = current;
     });
   </script>
 </body>
