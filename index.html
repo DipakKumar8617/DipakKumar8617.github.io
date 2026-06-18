@@ -365,6 +365,32 @@
       max-width: 760px;
     }
 
+    /* Normalize heading and list spacing inside cards for consistent layout */
+    .section-card h3,
+    .skill-card h3,
+    .experience-card h3,
+    .text-card h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.05rem;
+    }
+
+    .section-card ul,
+    .text-card ul,
+    .skill-card ul {
+      display: grid;
+      gap: 10px; /* consistent gap between list items */
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .section-card li,
+    .text-card li,
+    .skill-card li {
+      line-height: 1.45;
+      margin: 0; /* avoid extra margins that can create uneven gaps */
+    }
+
     .grid-2 {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -381,7 +407,7 @@
     .skill-list {
       list-style: none;
       display: grid;
-      gap: 12px;
+      gap: 8px;
       padding-left: 0;
     }
 
@@ -391,6 +417,7 @@
       gap: 10px;
       color: var(--text);
       font-size: 0.98rem;
+      line-height: 1.45;
     }
 
     .skill-list li::before {
@@ -444,8 +471,12 @@
       list-style: none;
       padding-left: 0;
       display: grid;
-      gap: 12px;
+      gap: 10px;
       color: var(--muted);
+    }
+
+    .experience-card ul li {
+      line-height: 1.5;
     }
 
     .experience-card ul li::before {
