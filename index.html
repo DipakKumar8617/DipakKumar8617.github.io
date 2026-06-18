@@ -243,6 +243,7 @@
       object-fit: cover;
       aspect-ratio: 16/10;
       filter: saturate(1.05) contrast(1.05);
+      /* prefer eager loading on mobile so image appears promptly */
     }
 
     .hero-image-card::after {
@@ -888,6 +889,27 @@
       }
     }
 
+    /* Mobile-specific background tweaks to ensure the hero visual appears */
+    @media (max-width: 980px) {
+      body {
+        /* disable fixed attachment on mobile for better rendering */
+        background-attachment: scroll;
+        background-position: center top;
+        background-size: cover;
+      }
+
+      /* make the inline hero image more prominent so it is visible even when background layers are skipped */
+      .hero-image-card img {
+        height: 180px;
+        aspect-ratio: auto;
+      }
+
+      .hero {
+        padding: 18px;
+        border-radius: 20px;
+      }
+    }
+
     /* Sticky footer styles */
     .footer.fixed-footer {
       position: fixed;
@@ -989,7 +1011,7 @@
 
       <aside class="hero-side reveal">
         <div class="hero-image-card">
-          <img src="hero-bg.png" alt="Dipak Kumar portfolio signature background" />
+          <img src="hero-bg.png" alt="Dipak Kumar portfolio signature background" loading="eager" decoding="async" />
           <div class="hero-image-banner"><span>Design</span><span>Develop</span><span>Inspire</span></div>
         </div>
         <div class="hero-quick">
@@ -1439,29 +1461,49 @@
       function showFooter(){
         if (window.localStorage && localStorage.getItem(storageKey)){
           footer.classList.add('hidden');
+          footer.classList.remove('visible');
           page.style.paddingBottom = '';
           return;
         }
         updatePadding();
         footer.classList.add('visible');
+        footer.classList.remove('hidden');
+      }
+
+      function hideFooter(persist=false){
+        footer.classList.remove('visible');
+        footer.classList.add('hidden');
+        page.style.paddingBottom = '';
+        if (persist && window.localStorage) localStorage.setItem(storageKey, '1');
+      }
+
+      function checkFooterVisibility(){
+        const threshold = document.body.scrollHeight - window.innerHeight - 220;
+        if (window.scrollY >= threshold && !footer.classList.contains('hidden')) {
+          showFooter();
+        } else {
+          footer.classList.remove('visible');
+        }
       }
 
       // initialize
       if (window.localStorage && localStorage.getItem(storageKey)){
         footer.classList.add('hidden');
+        page.style.paddingBottom = '';
       } else {
-        setTimeout(() => footer.classList.add('visible'), 260);
+        updatePadding();
       }
 
-      updatePadding();
-      window.addEventListener('resize', updatePadding);
+      window.addEventListener('resize', () => {
+        updatePadding();
+        checkFooterVisibility();
+      });
 
       let ticking = false;
       window.addEventListener('scroll', () => {
         if (!ticking) {
           window.requestAnimationFrame(() => {
-            if (window.scrollY > 200) footer.classList.add('visible');
-            else footer.classList.remove('visible');
+            checkFooterVisibility();
             ticking = false;
           });
           ticking = true;
