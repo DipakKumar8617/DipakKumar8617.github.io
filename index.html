@@ -1,1517 +1,405 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dipak Kumar Mahto | Portfolio</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #050814;
-      --surface: rgba(11, 22, 42, 0.92);
-      --surface-strong: rgba(15, 23, 42, 0.98);
-      --surface-soft: rgba(255, 255, 255, 0.05);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.14);
-      --border: rgba(148, 163, 184, 0.18);
-      --shadow: 0 32px 80px rgba(10, 25, 50, 0.35);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-      background-color: #050814;
-      background-image:
-        linear-gradient(180deg, rgba(5, 8, 20, 0.96), rgba(7, 10, 20, 0.96)),
-        url('hero-bg.png'),
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 22%),
-        radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.12), transparent 20%),
-        url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22 viewBox=%220 0 100 100%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22rgba(56,189,248,0.05)%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22rgba(168,85,247,0.05)%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%22100%22 height=%22100%22 fill=%22url(%23g)%22/%3E%3Cpath d=%22M10 90 C20 70 40 60 60 80 S90 100 100 80%22 fill=%22none%22 stroke=%22rgba(255,255,255,0.05)%22 stroke-width=%221.2%22/%3E%3Cpath d=%22M0 60 C20 40 40 30 55 45 S80 90 100 70%22 fill=%22none%22 stroke=%22rgba(255,255,255,0.03)%22 stroke-width=%221%22/%3E%3C/svg%3E');
-      background-size: auto, cover, auto, auto, cover;
-      background-position: center center, center center, top left, 80% 20%, center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-blend-mode: overlay, normal, normal, normal, normal;
-    }
-
-    .page {
-      width: min(1140px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 24px 0 60px;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(2, 6, 18, 0.88);
-      backdrop-filter: blur(24px);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
-      padding: 18px 28px;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.20);
-    }
-
-    .topbar-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
-      flex-wrap: wrap;
-      width: min(1140px, calc(100% - 32px));
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .brand-name {
-      font-size: 0.92rem;
-      letter-spacing: 0.28em;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a.active,
-    .nav-links a:hover {
-      color: #a5f3fc;
-    }
-
-    .topbar-status {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 18px;
-      font-size: 0.8rem;
-      color: #a5f3fc;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      border: 1px solid rgba(56, 189, 248, 0.24);
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.10);
-      min-width: 170px;
-    }
-
-    /* Mobile menu button (hamburger) */
-    .menu-button {
-      display: none;
-      background: transparent;
-      border: 0;
-      color: var(--text);
-      font-size: 1.8rem;
-      padding: 6px 10px;
-      border-radius: 8px;
-      cursor: pointer;
-      line-height: 1;
-      transition: color 0.2s ease;
-    }
-
-    .menu-button:hover {
-      color: var(--accent);
-    }
-
-    .mobile-menu {
-      display: none;
-      position: absolute;
-      right: 10px;
-      top: calc(100% + 8px);
-      background: var(--surface-strong);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 8px 10px;
-      min-width: 140px;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      z-index: 30;
-    }
-
-    .mobile-menu a {
-      display: block;
-      padding: 6px 8px;
-      color: var(--text);
-      text-decoration: none;
-      font-size: 0.88rem;
-    }
-
-    .mobile-menu a + a {
-      margin-top: 3px;
-    }
-
-    .mobile-menu.open {
-      display: block;
-    }
-
-    /* Compact header when scrolling on small screens */
-    .topbar.compact {
-      padding: 10px 12px;
-      transition: padding 0.22s ease;
-    }
-
-    .topbar.compact .brand-name {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-    }
-
-    .topbar.compact .topbar-status {
-      display: inline-flex !important;
-      padding: 6px 10px;
-      font-size: 0.7rem;
-    }
-
-    @media (max-width: 680px) {
-      .topbar.compact .topbar-status {
-        display: none !important;
-      }
-      .nav-links { display: none; }
-    }
-
-    .hero {
-      margin-top: 44px;
-      display: grid;
-      gap: 32px;
-      grid-template-columns: minmax(0, 2.2fr) minmax(320px, 1fr);
-      align-items: stretch;
-      position: relative;
-      overflow: hidden;
-      padding: 28px;
-      border-radius: 32px;
-      background: rgba(4, 9, 20, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(24px);
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background: radial-gradient(circle at 22% 20%, rgba(56, 189, 248, 0.16), transparent 18%),
-                  radial-gradient(circle at 82% 20%, rgba(168, 85, 247, 0.14), transparent 20%),
-                  radial-gradient(circle at 50% 85%, rgba(255, 255, 255, 0.05), transparent 20%);
-      filter: blur(1px);
-      opacity: 0.88;
-      mix-blend-mode: screen;
-    }
-
-    .hero-side {
-      display: grid;
-      gap: 24px;
-    }
-
-    .hero-image-card {
-      position: relative;
-      border-radius: 28px;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-image-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      aspect-ratio: 16/10;
-      filter: saturate(1.05) contrast(1.05);
-      /* prefer eager loading on mobile so image appears promptly */
-    }
-
-    .hero-image-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.00), rgba(0, 0, 0, 0.18));
-    }
-
-    .hero-image-banner {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 18px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.92rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #f8fafc;
-      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.55));
-    }
-
-    .hero-image-banner span {
-      display: inline-block;
-      background: rgba(255,255,255,0.08);
-      padding: 10px 14px;
-      border-radius: 999px;
-      color: #e2e8f0;
-      font-size: 0.8rem;
-      letter-spacing: 0.16em;
-    }
-
-    .hero > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-card,
-    .section-card,
-    .skill-card,
-    .contact-card,
-    .experience-card,
-    .text-card {
-      background: rgba(6, 11, 22, 0.86);
-      border: 1px solid rgba(148, 163, 184, 0.14);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
-      padding: 32px;
-      backdrop-filter: blur(22px);
-      overflow: hidden;
-    }
-
-    .hero-intro {
-      position: relative;
-      display: grid;
-      gap: 24px;
-      z-index: 1;
-      max-width: 720px;
-    }
-
-    .eyebrow {
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.28em;
-      font-size: 0.82rem;
-    }
-
-    .hero-title {
-      font-size: clamp(2.5rem, 4.4vw, 4rem);
-      line-height: 1.04;
-      letter-spacing: -0.03em;
-      font-weight: 800;
-      max-width: 760px;
-      text-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
-    }
-
-    .hero-title strong {
-      color: #e2e8f0;
-    }
-
-    .hero-subtitle {
-      max-width: 700px;
-      color: var(--muted);
-      font-size: 1.04rem;
-      line-height: 1.9;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-    }
-
-    .hero-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 20px;
-      border-radius: 999px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .button-primary {
-      background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
-      color: #f8fafc;
-      box-shadow: 0 20px 48px rgba(56, 189, 248, 0.22);
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .button-primary::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 999px;
-      box-shadow: 0 0 30px rgba(56, 189, 248, 0.45);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
-    .button-primary:hover::after {
-      opacity: 1;
-    }
-
-    .button-secondary {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
-    }
-
-    .button-secondary:hover {
-      background: rgba(255, 255, 255, 0.12);
-      box-shadow: 0 14px 28px rgba(56, 189, 248, 0.12);
-    }
-
-    .button:hover {
-      transform: translateY(-1px);
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .hero-meta {
-      display: grid;
-      gap: 18px;
-      margin-top: 20px;
-    }
-
-    .meta-item {
-      display: grid;
-      gap: 8px;
-    }
-
-    .meta-item span {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .meta-item strong {
-      font-size: 1rem;
-      letter-spacing: 0.01em;
-    }
-
-    .hero-quick {
-      display: grid;
-      gap: 20px;
-      background: rgba(7, 12, 23, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 28px;
-      padding: 30px;
-      box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.06);
-      transition: transform 0.25s ease, border-color 0.25s ease;
-    }
-
-    .hero-quick:hover {
-      transform: translateY(-2px);
-      border-color: rgba(56, 189, 248, 0.22);
-    }
-
-    .hero-quick h3 {
-      font-size: 1rem;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--accent);
-    }
-
-    .hero-quick p,
-    .hero-quick a {
-      color: var(--text);
-      text-decoration: none;
-      word-break: normal;
-      overflow-wrap: anywhere;
-      white-space: normal;
-    }
-
-    .section {
-      margin-top: 32px;
-      display: grid;
-      gap: 24px;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .section-number {
-      color: var(--accent);
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      font-size: 0.9rem;
-    }
-
-    .section-heading {
-      font-size: clamp(1.3rem, 1.5vw, 1.7rem);
-      margin: 0;
-      letter-spacing: -0.02em;
-    }
-
-    .text-card {
-      display: grid;
-      gap: 14px;
-      background: rgba(7, 13, 24, 0.88);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      border-radius: 28px;
-      padding: 30px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(22px);
-    }
-
-    .text-card p {
-      color: var(--muted);
-      max-width: 760px;
-    }
-
-    /* Normalize heading and list spacing inside cards for consistent layout */
-    .section-card h3,
-    .skill-card h3,
-    .experience-card h3,
-    .text-card h3 {
-      margin-top: 0;
-      margin-bottom: 12px;
-      font-size: 1.05rem;
-    }
-
-    .section-card ul,
-    .text-card ul,
-    .skill-card ul {
-      display: grid;
-      gap: 10px; /* consistent gap between list items */
-      padding-left: 0;
-      margin: 0;
-    }
-
-    .section-card li,
-    .text-card li,
-    .skill-card li {
-      line-height: 1.45;
-      margin: 0; /* avoid extra margins that can create uneven gaps */
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .competency-grid,
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .skill-list {
-      list-style: none;
-      display: grid;
-      gap: 8px;
-      padding-left: 0;
-    }
-
-    .skill-list li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text);
-      font-size: 0.98rem;
-      line-height: 1.45;
-    }
-
-    .skill-list li::before {
-      content: "•";
-      color: var(--accent);
-      font-size: 1rem;
-      display: inline-block;
-      line-height: 1;
-      width: 1em;
-      margin-left: -1em;
-    }
-
-    .experience-grid {
-      display: grid;
-      gap: 20px;
-    }
-
-    .experience-card {
-      padding: 28px;
-      border-radius: 28px;
-      background: rgba(7, 12, 24, 0.92);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      box-shadow: var(--shadow);
-      transition: transform 0.22s ease, border-color 0.22s ease;
-    }
-
-    .experience-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(56, 189, 248, 0.22);
-    }
-
-    .experience-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .experience-header h3 {
-      font-size: 1.05rem;
-      margin: 0;
-    }
-
-    .experience-header .company {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .experience-header time {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .experience-card ul {
-      list-style: none;
-      padding-left: 0;
-      display: grid;
-      gap: 10px;
-      color: var(--muted);
-    }
-
-    .experience-card ul li {
-      line-height: 1.5;
-    }
-
-    .experience-card ul li::before {
-      content: "▹";
-      color: var(--accent);
-      margin-right: 10px;
-      font-size: 0.9rem;
-    }
-
-    .marquee {
-      position: relative;
-      overflow: hidden;
-      border-radius: 32px;
-      background: linear-gradient(180deg, rgba(7, 15, 34, 0.98), rgba(10, 20, 44, 0.94));
-      border: 1px solid rgba(56, 189, 248, 0.16);
-      box-shadow: 0 24px 60px rgba(4, 9, 22, 0.42);
-      padding: 20px 32px;
-      min-height: 156px;
-      box-sizing: border-box;
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    .marquee::before,
-    .marquee::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      width: 75px;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .marquee::before {
-      left: 0;
-      background: linear-gradient(to right, rgba(5, 9, 19, 1), transparent);
-    }
-
-    .marquee::after {
-      right: 0;
-      background: linear-gradient(to left, rgba(5, 9, 19, 1), transparent);
-    }
-
-    .marquee-track {
-      display: flex;
-      gap: 18px;
-      align-items: center;
-      animation: marquee 30s linear infinite;
-      will-change: transform;
-      padding: 0;
-      margin: 0;
-      z-index: 1;
-      position: relative;
-    }
-
-    .marquee:hover .marquee-track {
-      animation-play-state: paused;
-    }
-
-    .marquee-group {
-      display: flex;
-      gap: 18px;
-    }
-
-    .tool-card {
-      flex: 0 0 auto;
-      width: 100px;
-      height: 100px;
-      display: grid;
-      place-items: center;
-      gap: 8px;
-      padding: 16px;
-      border-radius: 28px;
-      background: rgba(20, 32, 60, 0.88);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 18px 42px rgba(4, 12, 28, 0.28);
-      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background-color 0.24s ease;
-    }
-
-    .tool-card:hover {
-      transform: translateY(-6px);
-      background: rgba(56, 189, 248, 0.1);
-      border-color: rgba(56, 189, 248, 0.3);
-      box-shadow: 0 26px 62px rgba(24, 52, 107, 0.28);
-    }
-
-    .tool-card img {
-      width: 44px;
-      height: 44px;
-      object-fit: contain;
-      transition: transform 0.25s ease, filter 0.25s ease;
-    }
-
-    .logo-bg {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      display: inline-grid;
-      place-items: center;
-      background: radial-gradient(120% 80% at 10% 10%, rgba(99,102,241,0.12), transparent 22%),
-                  linear-gradient(135deg, rgba(56,189,248,0.06), rgba(168,85,247,0.06));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 8px 20px rgba(3,10,30,0.45);
-      transition: transform 0.28s ease, box-shadow 0.28s ease;
-    }
-
-    .tool-card:hover .logo-bg {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 14px 36px rgba(26,54,110,0.32);
-    }
-
-    .tool-card:hover img {
-      transform: scale(1.08);
-      filter: brightness(1.15);
-    }
-
-    .tool-label {
-      color: var(--muted);
-      font-size: 0.68rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 88px;
-    }
-
-    @media (max-width: 680px) {
-      .marquee {
-        min-height: 128px;
-        padding: 14px 8px;
-      }
-      .tool-card {
-        width: 78px;
-        height: 78px;
-        padding: 12px;
-      }
-      .tool-card img {
-        width: 30px;
-        height: 30px;
-      }
-      .tool-label {
-        display: block; /* ensure label is on its own line */
-        margin-top: 6px;
-        font-size: 0.62rem;
-        letter-spacing: 0.12em;
-        max-width: 72px;
-      }
-      .logo-bg { width: 48px; height: 48px; }
-    }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    .contact-grid {
-      display: grid;
-      gap: 18px;
-    }
-
-    .contact-card {
-      display: grid;
-      gap: 14px;
-    }
-
-    .contact-item {
-      display: grid;
-      gap: 6px;
-      color: var(--muted);
-    }
-
-    .contact-item strong {
-      color: var(--text);
-      font-size: 0.98rem;
-    }
-
-    .contact-item a {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .contact-item a:hover {
-      color: var(--accent);
-    }
-
-    .footer {
-      margin-top: 36px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.95rem;
-      padding: 28px 0 40px;
-      display: grid;
-      gap: 6px;
-      align-items: center;
-      justify-items: center;
-      border-top: 1px solid rgba(148, 163, 184, 0.06);
-      margin-bottom: 12px;
-    }
-
-    .footer strong {
-      color: var(--text);
-      font-weight: 700;
-      font-size: 1.02rem;
-      letter-spacing: 0.02em;
-    }
-
-    .footer .tagline {
-      color: var(--muted);
-      font-size: 0.95rem;
-      opacity: 0.95;
-    }
-
-    @media (max-width: 980px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-      .competency-grid,
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 680px) {
-      .topbar {
-        padding: 12px 16px;
-      }
-
-      .topbar-inner {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        flex-wrap: nowrap;
-      }
-
-      .brand-name {
-        font-size: 0.78rem;
-        letter-spacing: 0.22em;
-        flex-shrink: 0;
-        order: 1;
-      }
-
-      .topbar-status {
-        display: none;
-      }
-
-      .menu-button {
-        display: inline-flex !important;
-        align-items: center;
-        justify-content: center;
-        order: 3;
-        font-size: 1.6rem;
-        padding: 6px 8px;
-        flex-shrink: 0;
-      }
-
-      .nav-links {
-        justify-content: center;
-      }
-      .hero-card,
-      .contact-card,
-      .section-card,
-      .skill-card {
-        padding: 24px;
-      }
-    }
-
-    /* Mobile-specific background tweaks to ensure the hero visual appears */
-    @media (max-width: 980px) {
-      body {
-        /* disable fixed attachment on mobile for better rendering */
-        background-attachment: scroll;
-        background-position: center top;
-        background-size: cover;
-      }
-
-      /* make the inline hero image more prominent so it is visible even when background layers are skipped */
-      .hero-image-card img {
-        height: 180px;
-        aspect-ratio: auto;
-      }
-
-      .hero {
-        padding: 18px;
-        border-radius: 20px;
-      }
-    }
-
-    /* Sticky footer styles */
-    .footer.fixed-footer {
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%) translateY(12px);
-      bottom: 18px;
-      width: min(1140px, calc(100% - 32px));
-      z-index: 60;
-      transition: transform 360ms cubic-bezier(.2,.9,.2,1), opacity 360ms ease;
-      opacity: 0;
-      pointer-events: auto;
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: rgba(6,11,22,0.88);
-      border: 1px solid rgba(148,163,184,0.08);
-    }
-
-    .footer.fixed-footer .footer-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .footer.fixed-footer .footer-close {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.04);
-      color: var(--text);
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: inline-grid;
-      place-items: center;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: background 160ms ease, transform 160ms ease;
-    }
-
-    .footer.fixed-footer .footer-close:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
-
-    .footer.fixed-footer.visible {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-
-    @media (max-width: 680px) {
-      .footer.fixed-footer { left: 50%; width: calc(100% - 32px); bottom: 12px; }
-      .footer.fixed-footer .footer-close { top: 6px; right: 10px; }
-    }
-  </style>
-</head>
-<body>
-  <div class="page">
-    <header class="topbar">
-      <div class="topbar-inner">
-        <div class="brand-name">DIPAK_PORTFOLIO</div>
-        <nav class="nav-links">
-          <a href="#summary" class="active">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Work</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <div class="topbar-status">Open to freelance</div>
-        <button class="menu-button" id="menuButton" aria-haspopup="true" aria-expanded="false" aria-label="Open navigation">☰</button>
-
-        <div class="mobile-menu" id="mobileMenu" role="menu" aria-hidden="true">
-          <a href="#summary">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Work</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </div>
-    </header>
-
-    <section class="hero reveal">
-      <div class="hero-intro reveal">
-        <div class="eyebrow">DevOps & Cloud Infrastructure</div>
-        <h1 class="hero-title">I build resilient Linux infrastructure for <strong>enterprise reliability</strong> at scale.</h1>
-        <p class="hero-subtitle">Application Support Engineer with 3+ years of production experience in Linux, AWS, container orchestration, CI/CD automation, telecom infrastructure, and incident remediation.</p>
-        <div class="hero-links">
-          <a class="button button-primary" href="#contact">Hire Me</a>
-          <a class="button button-secondary" href="#experience">See Experience</a>
-        </div>
-        <div class="hero-meta">
-          <div class="meta-item"><strong>Role</strong><span>Application Support Engineer (L2/3)</span></div>
-          <div class="meta-item"><strong>Focus</strong><span>Linux, Cloud, DevOps, Automation</span></div>
-        </div>
-      </div>
-
-      <aside class="hero-side reveal">
-        <div class="hero-image-card">
-          <img src="hero-bg.png" alt="Dipak Kumar portfolio signature background" loading="eager" decoding="async" />
-          <div class="hero-image-banner"><span>Design</span><span>Develop</span><span>Inspire</span></div>
-        </div>
-        <div class="hero-quick">
-          <h3>What I Offer</h3>
-          <ul class="skill-list">
-            <li>99.9% uptime infrastructure design</li>
-            <li>End-to-end DevOps automation</li>
-            <li>Crisis management & incident RCA</li>
-            <li>Scalable cloud architecture</li>
-            <li>Security hardening & compliance</li>
-          </ul>
-          <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(148, 163, 184, 0.2);">
-            <p style="font-size: 0.9rem; color: var(--muted);">Open for contract roles, freelance projects, and full-time positions. Remote or on-site.</p>
-          </div>
-        </div>
-      </aside>
-    </section>
-
-    <section class="section" id="summary">
-      <div class="section-title">
-        <span class="section-number">01</span>
-        <h2 class="section-heading">Professional Summary</h2>
-      </div>
-      <div class="text-card reveal">
-        <p>DevOps engineer and Linux system administrator with practical experience delivering reliable infrastructure in production environments. I support Linux-based telecom and enterprise services with strong troubleshooting, security hardening, and automation practices.</p>
-        <ul class="skill-list">
-          <li>Managed Linux infrastructure for RHEL/Ubuntu, AWS, and private cloud environments.</li>
-          <li>Implemented CI/CD pipelines using GitHub Actions and Jenkins for faster release cycles.</li>
-          <li>Delivered high availability and failover for critical telecom and application workloads.</li>
-          <li>Automated deployment, monitoring, and incident response workflows using Bash and Python.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section" id="skills">
-      <div class="section-title">
-        <span class="section-number">02</span>
-        <h2 class="section-heading">Core Competencies</h2>
-      </div>
-      <div class="competency-grid reveal">
-        <div class="skill-card reveal">
-          <h3>DevOps & Automation</h3>
-          <ul class="skill-list">
-            <li>Jenkins, GitHub Actions, Git workflows</li>
-            <li>CI/CD pipeline automation</li>
-            <li>Infrastructure as Code concepts</li>
-            <li>Bash/Python scripting</li>
-          </ul>
-        </div>
-        <div class="skill-card reveal">
-          <h3>Cloud & Linux</h3>
-          <ul class="skill-list">
-            <li>AWS (EC2, S3, VPC, IAM, Route53)</li>
-            <li>RHEL, Ubuntu, AIX administration</li>
-            <li>SSH security, iptables, firewall hardening</li>
-            <li>Filesystem and user management</li>
-          </ul>
-        </div>
-        <div class="skill-card reveal">
-          <h3>Containers & Orchestration</h3>
-          <ul class="skill-list">
-            <li>Kubernetes, Docker, Docker Compose</li>
-            <li>Container lifecycle management</li>
-            <li>Service discovery and load balancing</li>
-            <li>Keepalived, IPVS failover design</li>
-          </ul>
-        </div>
-        <div class="skill-card reveal">
-          <h3>Networking & Security</h3>
-          <ul class="skill-list">
-            <li>Telecom infrastructure and AAA systems</li>
-            <li>TACACS+, RADIUS, BSS/CRM integration</li>
-            <li>Reverse proxy / SSL termination</li>
-            <li>Monitoring, incident management, SLA adherence</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="experience">
-      <div class="section-title">
-        <span class="section-number">03</span>
-        <h2 class="section-heading">Experience</h2>
-      </div>
-      <div class="experience-grid reveal">
-        <article class="experience-card">
-          <div class="experience-header">
-            <div>
-              <h3>Application Support Engineer (L2/3) — DevOps & Cloud Infrastructure</h3>
-              <div class="company">Olatech Solutions Limited • Pune, Maharashtra</div>
-            </div>
-            <time>Dec 2024 – Present</time>
-          </div>
-          <ul>
-            <li>Led support for enterprise telecom and application platforms with 1M+ subscribers.</li>
-            <li>Delivered 99.9% uptime through Linux hardening, firewall/iptables, and secure SSH policies.</li>
-            <li>Managed Kubernetes, Docker, and Docker Compose deployments for TACACS+, TACACS UI, and BSS services.</li>
-            <li>Improved full-stack observability using Grafana and Nagios while reducing MTTD/MTTR via proactive alerting.</li>
-            <li>Built Git branching and CI/CD workflows, including merge and release coordination.</li>
-          </ul>
-        </article>
-        <article class="experience-card">
-          <div class="experience-header">
-            <div>
-              <h3>Support Engineer (L2) — Linux & Network Infrastructure</h3>
-              <div class="company">Olatech Solutions Limited</div>
-            </div>
-            <time>Aug 2023 – Nov 2024</time>
-          </div>
-          <ul>
-            <li>Monitored application performance and resolved critical production issues within SLA.</li>
-            <li>Executed incident RCA for AAA and telecom failures, 24/7 response for network events.</li>
-            <li>Automated health checks and deployment tasks with Bash/Python scripts, lowering manual load by 60%.</li>
-            <li>Handled AAA service flows, Epiphany Policy Controller troubleshooting, and secure session tracing.</li>
-          </ul>
-        </article>
-        <article class="experience-card">
-          <div class="experience-header">
-            <div>
-              <h3>Senior IT Supervisor — Infrastructure & Operations</h3>
-              <div class="company">TGI Express Limited</div>
-            </div>
-            <time>Jul 2022 – Jul 2023</time>
-          </div>
-          <ul>
-            <li>Managed IT support for 250+ users and maintained infrastructure documentation.</li>
-            <li>Resolved hardware/software incidents, backups, and service availability issues.</li>
-            <li>Introduced operational improvements for change management and incident escalation.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="projects">
-      <div class="section-title">
-        <span class="section-number">04</span>
-        <h2 class="section-heading">Highlighted Projects</h2>
-      </div>
-      <div class="grid-2 reveal">
-        <div class="section-card reveal">
-          <h3>Government – Project Infrastructure Deployment</h3>
-          <ul class="skill-list">
-            <li>End-to-end Linux infrastructure setup for government-scale deployment.</li>
-            <li>Deployed Proxmox virtual machines with HA clustering and failover routing.</li>
-            <li>Integrated Cisco and Tejas network devices with virtual IP recovery paths.</li>
-            <li>Maintained mission-critical uptime and proactive health validation.</li>
-          </ul>
-        </div>
-        <div class="section-card reveal">
-          <h3>High-Availability & Load Balancing</h3>
-          <ul class="skill-list">
-            <li>Designed Keepalived and IPVS failover topology for application resilience.</li>
-            <li>Automated VM disk conversions from .raw to .qcow2 for recovery snapshots.</li>
-            <li>Validated disaster recovery scenarios with monitored failover checks.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="section-title">
-        <span class="section-number">05</span>
-        <h2 class="section-heading">Contact</h2>
-      </div>
-      <article class="contact-card reveal">
-        <div class="contact-item">
-          <strong>Email</strong>
-          <a href="mailto:idipakmahto@gmail.com">idipakmahto@gmail.com</a>
-        </div>
-        <div class="contact-item">
-          <strong>Phone</strong>
-          <a href="tel:+918617272430">+91 86172 72430</a>
-        </div>
-        <div class="contact-item">
-          <strong>LinkedIn</strong>
-          <a href="https://www.linkedin.com/in/dipak-kumar-98704b229/" target="_blank" rel="noreferrer">linkedin.com/in/dipak-kumar-98704b229</a>
-        </div>
-        <div class="contact-item">
-          <strong>Availability</strong>
-          <span>Open to freelance work, contract roles, and infrastructure engineering opportunities.</span>
-        </div>
-      </article>
-    </section>
-
-    <section class="section" id="skills-showcase">
-      <div class="section-title">
-        <span class="section-number">06</span>
-        <h2 class="section-heading">Tools I Work With</h2>
-      </div>
-      <div class="section-card reveal">
-        <div class="marquee" aria-label="Tools I work with">
-          <div class="marquee-track">
-            <div class="marquee-group">
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/amazonaws/ff9900" alt="Amazon Web Services logo" /></div>
-                <span class="tool-label">AWS</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/linux/ffffff" alt="Linux logo" /></div>
-                <span class="tool-label">Linux</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/ubuntu/e95420" alt="Ubuntu logo" /></div>
-                <span class="tool-label">Ubuntu</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/redhat/ee0000" alt="Red Hat logo" /></div>
-                <span class="tool-label">Red Hat</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/docker/2496ed" alt="Docker logo" /></div>
-                <span class="tool-label">Docker</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/kubernetes/326ce5" alt="Kubernetes logo" /></div>
-                <span class="tool-label">Kubernetes</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/jenkins/d24939" alt="Jenkins logo" /></div>
-                <span class="tool-label">Jenkins</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/githubactions/2088ff" alt="GitHub Actions logo" /></div>
-                <span class="tool-label">GitHub Actions</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/git/f05032" alt="Git logo" /></div>
-                <span class="tool-label">Git</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/bash/4eaa25" alt="Bash logo" /></div>
-                <span class="tool-label">Bash</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/python/3776ab" alt="Python logo" /></div>
-                <span class="tool-label">Python</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/nagios/fe7a2b" alt="Nagios logo" /></div>
-                <span class="tool-label">Nagios</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/grafana/f46800" alt="Grafana logo" /></div>
-                <span class="tool-label">Grafana</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/nginx/009639" alt="Nginx logo" /></div>
-                <span class="tool-label">Nginx</span>
-              </div>
-            </div>
-            <div class="marquee-group" aria-hidden="true">
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/amazonaws/ff9900" alt="Amazon Web Services logo" /></div>
-                <span class="tool-label">AWS</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/linux/ffffff" alt="Linux logo" /></div>
-                <span class="tool-label">Linux</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/ubuntu/e95420" alt="Ubuntu logo" /></div>
-                <span class="tool-label">Ubuntu</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/redhat/ee0000" alt="Red Hat logo" /></div>
-                <span class="tool-label">Red Hat</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/docker/2496ed" alt="Docker logo" /></div>
-                <span class="tool-label">Docker</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/kubernetes/326ce5" alt="Kubernetes logo" /></div>
-                <span class="tool-label">Kubernetes</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/jenkins/d24939" alt="Jenkins logo" /></div>
-                <span class="tool-label">Jenkins</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/githubactions/2088ff" alt="GitHub Actions logo" /></div>
-                <span class="tool-label">GitHub Actions</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/git/f05032" alt="Git logo" /></div>
-                <span class="tool-label">Git</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/bash/4eaa25" alt="Bash logo" /></div>
-                <span class="tool-label">Bash</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/python/3776ab" alt="Python logo" /></div>
-                <span class="tool-label">Python</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/nagios/fe7a2b" alt="Nagios logo" /></div>
-                <span class="tool-label">Nagios</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/grafana/f46800" alt="Grafana logo" /></div>
-                <span class="tool-label">Grafana</span>
-              </div>
-              <div class="tool-card">
-                <div class="logo-bg"><img src="https://cdn.simpleicons.org/nginx/009639" alt="Nginx logo" /></div>
-                <span class="tool-label">Nginx</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="footer fixed-footer" id="siteFooter" role="status" aria-live="polite">
-      <div class="footer-content">
-        <strong>Built by Dipak Kumar Mahto</strong>
-        <div class="tagline">Linux Operations • Automation • Cloud Infrastructure</div>
-      </div>
-      <button class="footer-close" id="footerClose" aria-label="Dismiss footer">✕</button>
-    </div>
-  </div>
-
-  <script>
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const revealElements = document.querySelectorAll('.reveal');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
-        });
-      });
-    }, { rootMargin: '-40% 0px -55% 0px' });
-
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.18 });
-
-    sections.forEach(section => observer.observe(section));
-    revealElements.forEach(element => revealObserver.observe(element));
-
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', event => {
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-          event.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-
-    // Mobile menu toggle (3-dot button)
-    const menuButton = document.getElementById('menuButton');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('open');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      menuButton.setAttribute('aria-expanded', 'false');
-    }
-
-    function openMobileMenu() {
-      mobileMenu.classList.add('open');
-      mobileMenu.setAttribute('aria-hidden', 'false');
-      menuButton.setAttribute('aria-expanded', 'true');
-    }
-
-    menuButton.addEventListener('click', (e) => {
-      const isOpen = mobileMenu.classList.contains('open');
-      if (isOpen) closeMobileMenu(); else openMobileMenu();
-    });
-
-    // Close mobile menu when clicking a link
-    mobileMenu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        closeMobileMenu();
-      });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
-        closeMobileMenu();
-      }
-    });
-
-    // Compact header on scroll for small screens: show only brand and status
-    const topbar = document.querySelector('.topbar');
-    let lastScroll = window.scrollY;
-    window.addEventListener('scroll', () => {
-      const current = window.scrollY;
-      if (window.innerWidth <= 680) {
-        if (current > 80) {
-          topbar.classList.add('compact');
-        } else {
-          topbar.classList.remove('compact');
-        }
-      } else {
-        topbar.classList.remove('compact');
-      }
-      lastScroll = current;
-    });
-
-    // Remove any tool-card whose image fails to load (keeps carousel clean)
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.tool-card img').forEach(img => {
-        img.addEventListener('error', () => {
-          const card = img.closest('.tool-card');
-          if (card) card.remove();
-        });
-        // if already loaded but empty
-        if (img.complete && img.naturalWidth === 0) {
-          const card = img.closest('.tool-card');
-          if (card) card.remove();
-        }
-      });
-    });
-  </script>
-
-  <script>
-    (function(){
-      const footer = document.getElementById('siteFooter');
-      const page = document.querySelector('.page');
-      const closeBtn = document.getElementById('footerClose');
-      const storageKey = 'footerDismissed_v1';
-      if (!footer || !page) return;
-
-      function updatePadding(){
-        const h = footer.offsetHeight + 24;
-        page.style.paddingBottom = `${h}px`;
-      }
-
-      function hideFooter(persist=false){
-        footer.classList.remove('visible');
-        footer.classList.add('hidden');
-        page.style.paddingBottom = '';
-        if (persist && window.localStorage) localStorage.setItem(storageKey, '1');
-      }
-
-      function showFooter(){
-        if (window.localStorage && localStorage.getItem(storageKey)){
-          footer.classList.add('hidden');
-          footer.classList.remove('visible');
-          page.style.paddingBottom = '';
-          return;
-        }
-        updatePadding();
-        footer.classList.add('visible');
-        footer.classList.remove('hidden');
-      }
-
-      function hideFooter(persist=false){
-        footer.classList.remove('visible');
-        footer.classList.add('hidden');
-        page.style.paddingBottom = '';
-        if (persist && window.localStorage) localStorage.setItem(storageKey, '1');
-      }
-
-      function checkFooterVisibility(){
-        const threshold = document.body.scrollHeight - window.innerHeight - 220;
-        if (window.scrollY >= threshold && !footer.classList.contains('hidden')) {
-          showFooter();
-        } else {
-          footer.classList.remove('visible');
-        }
-      }
-
-      // initialize
-      if (window.localStorage && localStorage.getItem(storageKey)){
-        footer.classList.add('hidden');
-        page.style.paddingBottom = '';
-      } else {
-        updatePadding();
-      }
-
-      window.addEventListener('resize', () => {
-        updatePadding();
-        checkFooterVisibility();
-      });
-
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            checkFooterVisibility();
-            ticking = false;
-          });
-          ticking = true;
-        }
-      });
-
-      if (closeBtn) closeBtn.addEventListener('click', () => hideFooter(true));
-    })();
-  </script>
-</body>
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Dipak Kumar Mahto | Portfolio</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="DevOps engineer portfolio - Linux infrastructure, cloud, automation, and reliability." />
+	<meta name="keywords" content="DevOps, Linux, AWS, Kubernetes, Infrastructure, Automation" />
+	<meta name="author" content="Dipak Kumar Mahto" />
+
+  <!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="Dipak Kumar Mahto | Portfolio"/>
+	<meta property="og:image" content="noah-template/hero-bg.png"/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content="Dipak Kumar Mahto"/>
+	<meta property="og:description" content="Professional portfolio for DevOps, cloud infrastructure, and Linux operations."/>
+	<meta name="twitter:title" content="Dipak Kumar Mahto | Portfolio" />
+	<meta name="twitter:image" content="noah-template/hero-bg.png" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="summary_large_image" />
+
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="noah-template/css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="noah-template/css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="noah-template/css/bootstrap.css">
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="noah-template/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="noah-template/css/owl.theme.default.min.css">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="noah-template/css/magnific-popup.css">
+
+	<link rel="stylesheet" href="noah-template/css/style.css">
+
+	<!-- Logo override styles -->
+	<style>
+	  .colorlib-logo {
+	    display: inline-block;
+	    font-family: 'Karla', Arial, sans-serif;
+	    font-weight: 700;
+	    font-size: 0.95rem;
+	    letter-spacing: 0.08em;
+	    color: #fff !important;
+	    background: #0b0b0b;
+	    padding: 8px 14px;
+	    border-radius: 6px;
+	    text-decoration: none !important;
+	  }
+	  .colorlib-navbar-brand { display:flex; align-items:center; gap:10px; }
+	</style>
+
+	<!-- Modernizr JS -->
+	<script src="noah-template/js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="noah-template/js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+
+	<nav id="colorlib-main-nav" role="navigation">
+		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle active"><i></i></a>
+		<div class="js-fullheight colorlib-table">
+			<div class="colorlib-table-cell js-fullheight">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<input type="text" class="form-control" id="search" placeholder="Enter any key to search...">
+							<button type="submit" class="btn btn-primary"><i class="icon-search3"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<ul>
+							<li class="active"><a href="#colorlib-about">Home</a></li>
+							<li><a href="#colorlib-services">Services</a></li>
+							<li><a href="#colorlib-work">Work</a></li>
+							<li><a href="#colorlib-contact">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	
+	<div id="colorlib-page">
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="colorlib-navbar-brand">
+						<a class="colorlib-logo" href="index.html">Dipak</a>
+						</div>
+						<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div id="colorlib-about">
+			<div class="container">
+				<div class="row text-center">
+					<h2 class="bold">About</h2>
+				</div>
+				<div class="row">
+					<div class="col-md-5 animate-box">
+								<div class="owl-carousel3">
+							<div class="item">
+								<img class="img-responsive about-img" src="Dipak_img1_resized.jpeg" alt="Dipak image 1">
+							</div>
+							<div class="item">
+								<img class="img-responsive about-img" src="Dipak_img1_resized.jpeg" alt="Dipak image 2 (fallback)">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-md-push-1 animate-box">
+						<div class="about-desc">
+							<div class="owl-carousel3">
+								<div class="item">
+									<h2><span>Dipak</span><span>Kumar Mahto</span></h2>
+								</div>
+							</div>
+							<div class="desc">
+								<div class="rotate">
+									<h2 class="heading">About</h2>
+								</div>
+								<p>DevOps engineer and Linux system administrator with practical experience delivering reliable infrastructure in production environments. I support Linux-based telecom and enterprise services with strong troubleshooting, security hardening, and automation practices.</p>
+								<p>My work delivers stability for mission-critical systems with automation, cloud operations, and incident response built into every deployment.</p>
+								<p class="colorlib-social-icons">
+									<a href="https://www.linkedin.com/in/dipak-kumar-98704b229/" target="_blank"><i class="icon-linkedin2"></i></a>
+									<a href="#"><i class="icon-twitter3"></i></a>
+									<a href="#"><i class="icon-github"></i></a>
+								</p>
+								<p><a href="mailto:idipakmahto@gmail.com" class="btn btn-primary btn-outline">Contact Me</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="colorlib-services">
+			<div class="container">
+				<div class="row text-center">
+					<h2 class="bold">Services</h2>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="services-flex">
+							<div class="one-third">
+								<div class="row">
+									<div class="col-md-12 col-md-offset-0 animate-box intro-heading">
+										<span>My Expertise</span>
+										<h2>Core Competencies</h2>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="rotate">
+											<h2 class="heading">Services</h2>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="services animate-box">
+											<h3>1 - DevOps & Automation</h3>
+											<ul>
+												<li>CI/CD pipelines with Jenkins and GitHub Actions</li>
+												<li>Infrastructure automation and scripting</li>
+												<li>Monitoring, observability, and incident response</li>
+											</ul>
+										</div>
+										<div class="services animate-box">
+											<h3>3 - Containers & Orchestration</h3>
+											<ul>
+												<li>Docker and Kubernetes deployment management</li>
+												<li>Service discovery, scaling, and failover design</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="services animate-box">
+											<h3>2 - Cloud & Linux</h3>
+											<ul>
+												<li>AWS, RHEL, Ubuntu, and Linux infrastructure</li>
+												<li>Secure remote access, user management, and hardening</li>
+											</ul>
+										</div>
+										<div class="services animate-box">
+											<h3>4 - Networking & Security</h3>
+											<ul>
+												<li>High-availability load balancing and failover</li>
+												<li>Security hardening, firewalls, and incident mitigation</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="one-forth services-img" style="background-image: url(Core_competencies_resized.png);"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="colorlib-work">
+			<div class="container">
+				<div class="row text-center">
+					<h2 class="bold">Works</h2>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-md-offset-0 text-center animate-box intro-heading">
+						<span>Portfolio</span>
+						<h2>Highlighted Projects</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="rotate">
+							<h2 class="heading">Portfolio</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="work-entry animate-box">
+							<a class="work-img" style="background-image: url(Govt_project.png);">
+								<div class="display-t">
+									<div class="work-name">
+										<h2>Government – Project Infrastructure Deployment</h2>
+									</div>
+								</div>
+							</a>
+							<div class="col-md-4 col-md-offset-4">
+								<div class="desc">
+									<p>End-to-end Linux infrastructure setup for a government-scale deployment with Proxmox clustering, VM provisioning, and networking integration.</p>
+									<p class="read"><a href="#colorlib-work">View Details</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="work-entry animate-box">
+							<a class="work-img" style="background-image: url(loadbalancer.png);">
+								<div class="display-t">
+									<div class="work-name">
+										<h2>High-Availability &amp; Load Balancing</h2>
+									</div>
+								</div>
+							</a>
+							<div class="col-md-4 col-md-offset-4">
+								<div class="desc">
+									<p>Designed Keepalived and IPVS failover topology and automated snapshot workflows for resilient production services.</p>
+									<p class="read"><a href="#colorlib-work">View Details</a></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="colorlib-contact">
+			<div class="container">
+				<div class="row text-center">
+					<h2 class="bold">Contact</h2>
+				</div>
+				<div class="row">
+					<div class="col-md-12 col-md-offset-0 text-center animate-box intro-heading">
+						<span>Get in Touch</span>
+						<h2>Let's Connect</h2>
+					</div>
+				</div>
+				<div class="row animate-box">
+					<div class="col-md-12">
+						<div class="contact">
+							<div class="row">
+								<div class="col-md-4">
+									<h3>Email</h3>
+									<p><a href="mailto:idipakmahto@gmail.com">idipakmahto@gmail.com</a></p>
+								</div>
+								<div class="col-md-4">
+									<h3>Phone</h3>
+									<p><a href="tel:+918617272430">+91 86172 72430</a></p>
+								</div>
+								<div class="col-md-4">
+									<h3>LinkedIn</h3>
+									<p><a href="https://www.linkedin.com/in/dipak-kumar-98704b229/" target="_blank" rel="noreferrer">linkedin.com/in/dipak-kumar-98704b229</a></p>
+								</div>
+							</div>
+							<p>Open to freelance work, contract roles, and infrastructure engineering opportunities.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer>
+			<div id="footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 col-pb-sm">
+							<h2>Let's Talk</h2>
+							<p>Delivering reliable infrastructure, automation, and cloud operations for enterprise systems.</p>
+							<p><a href="mailto:idipakmahto@gmail.com">idipakmahto@gmail.com</a></p>
+						</div>
+						<div class="col-md-4 col-pb-sm">
+							<h2>Highlighted Work</h2>
+							<div class="f-entry">
+								<a href="#colorlib-work" class="featured-img" style="background-image: url(Govt_project.png);"></a>
+								<div class="desc">
+									<span>Infrastructure</span>
+									<h3><a href="#colorlib-work">Gov Deployment</a></h3>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 col-pb-sm">
+							<h2>Newsletter</h2>
+							<p>Stay updated on infrastructure projects, automation work, and cloud engineering progress.</p>
+							<div class="subscribe text-center">
+								<div class="form-group">
+									<input type="text" class="form-control text-center" placeholder="Enter Email address">
+									<input type="submit" value="Subscribe" class="btn btn-primary btn-custom">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<p>
+								&copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | <a target="_blank">Dipak Kumar Mahto</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	
+	</div>
+
+	<!-- jQuery -->
+	<script src="noah-template/js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="noah-template/js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="noah-template/js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="noah-template/js/jquery.waypoints.min.js"></script>
+	<!-- Owl Carousel -->
+	<script src="noah-template/js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="noah-template/js/jquery.magnific-popup.min.js"></script>
+	<script src="noah-template/js/magnific-popup-options.js"></script>
+
+	<!-- Main JS -->
+	<script src="noah-template/js/main.js"></script>
+
+	<!-- Small helpers: smooth scrolling for side-nav anchors and close menu on click -->
+	<script>
+	  document.addEventListener('DOMContentLoaded', function(){
+	    // handle clicks inside the side navigation
+	    document.querySelectorAll('#colorlib-main-nav a').forEach(function(link){
+	      link.addEventListener('click', function(e){
+	        var href = this.getAttribute('href');
+	        if (!href || href.indexOf('#') !== 0) return; // external link
+	        e.preventDefault();
+	        // close menu if open
+	        document.body.classList.remove('menu-show');
+	        // smooth scroll to target section
+	        var target = document.querySelector(href);
+	        if (target) {
+	          var top = window.pageYOffset + target.getBoundingClientRect().top - 40;
+	          window.scrollTo({ top: top, behavior: 'smooth' });
+	        }
+	      });
+	    });
+	    // also support any header links that reference anchors
+	    document.querySelectorAll('a[href^="#"]').forEach(function(link){
+	      // skip those inside the side nav (already handled)
+	      if (link.closest('#colorlib-main-nav')) return;
+	      link.addEventListener('click', function(e){
+	        var href = this.getAttribute('href');
+	        if (!href || href.length === 1) return;
+	        var target = document.querySelector(href);
+	        if (target) {
+	          e.preventDefault();
+	          var top = window.pageYOffset + target.getBoundingClientRect().top - 40;
+	          window.scrollTo({ top: top, behavior: 'smooth' });
+	        }
+	      });
+	    });
+	  });
+	</script>
+
+	</body>
 </html>
